@@ -1,0 +1,37 @@
+	How to write, compile, debug and run C programs on Linux
+	========================================================
+
+There are some prompts below, but you should add anything else you think
+will be useful.
+
+Useful sources of information
+=============================
+https://stackoverflow.com/questions/310032/output-single-character-in-c
+
+
+Writing C programs
+==================
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+  printf("Hello world!\n");
+}
+
+Compiling C programs
+====================
+use makefile and command make
+
+Linking C programs
+==================
+use  makefile
+make <name of file>
+
+Running C programs
+==================
+./<name of file>
+
+Comparing output from C and Java programs
+=========================================
+different digits of mean salary
+

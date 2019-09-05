@@ -1,0 +1,1851 @@
+%!PS-Adobe-3.0
+%%Title: LabReport.tex
+%%For: Qifan Zhu
+%%Creator: a2ps version 4.14
+%%CreationDate: Mon May 14 11:37:00 2018
+%%BoundingBox: 24 24 571 818
+%%DocumentData: Clean7Bit
+%%Orientation: Portrait
+%%Pages: 13
+%%PageOrder: Ascend
+%%DocumentMedia: A4 595 842 0 () ()
+%%DocumentNeededResources: font Courier
+%%+ font Courier-Bold
+%%+ font Courier-BoldOblique
+%%+ font Courier-Oblique
+%%+ font Helvetica
+%%+ font Helvetica-Bold
+%%+ font Symbol
+%%+ font Times-Bold
+%%+ font Times-Roman
+%%DocumentProcessColors: Black 
+%%DocumentSuppliedResources: procset a2ps-a2ps-hdr
+%%+ procset a2ps-black+white-Prolog
+%%+ encoding ISO-8859-1Encoding
+%%EndComments
+/a2psdict 200 dict def
+a2psdict begin
+%%BeginProlog
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+
+% EPSF import as in the Red Book
+/BeginInclude {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack 
+  userdict begin
+    0 setgray 0 setlinecap
+    1 setlinewidth 0 setlinejoin
+    10 setmiterlimit [ ] 0 setdash newpath
+    gs_languagelevel 1 ne {
+      false setstrokeadjust false setoverprint 
+    } if
+} bind def
+
+/EndInclude {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+/BeginEPSF {
+  BeginInclude
+  /showpage { } def
+} bind def
+
+/EndEPSF {
+  EndInclude
+} bind def
+
+% Page prefeed
+/page_prefeed {         % bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} bind def
+
+/deffont {
+  findfont exch scalefont def
+} bind def
+
+/reencode_font {
+  findfont reencode 2 copy definefont pop def
+} bind def
+
+% Function c-show (str => -)
+% centers text only according to x axis.
+/c-show { 
+  dup stringwidth pop
+  2 div neg 0 rmoveto
+  show
+} bind def
+
+% Function l-show (str => -)
+% prints texts so that it ends at currentpoint
+/l-show {
+  dup stringwidth pop neg 
+  0 
+  rmoveto show
+} bind def
+
+% center-fit show (str w => -)
+% show centered, and scale currentfont so that the width is less than w
+/cfshow {
+  exch dup stringwidth pop
+  % If the title is too big, try to make it smaller
+  3 2 roll 2 copy
+  gt
+  { % if, i.e. too big
+    exch div
+    currentfont exch scalefont setfont
+  } { % ifelse
+    pop pop 
+  }
+  ifelse
+  c-show			% center title
+} bind def
+
+% Return the y size of the current font
+% - => fontsize
+/currentfontsize {
+  currentfont /FontType get 0 eq {
+    currentfont /FontMatrix get 3 get
+  }{
+    currentfont /FontMatrix get 3 get 1000 mul
+  } ifelse
+} bind def
+
+% reencode the font
+% <encoding-vector> <fontdict> -> <newfontdict>
+/reencode { %def
+  dup length 5 add dict begin
+    { %forall
+      % <vector> <key> <val>
+      1 index /FID ne 
+      { def }{ pop pop } ifelse
+    } forall
+    /Encoding exch def % -
+
+    % Use the font's bounding box to determine the ascent, descent,
+    % and overall height; don't forget that these values have to be
+    % transformed using the font's matrix.
+    % We use `load' because sometimes BBox is executable, sometimes not.
+    % Since we need 4 numbers an not an array avoid BBox from being executed
+    /FontBBox load aload pop
+    FontMatrix transform /Ascent exch def pop
+    FontMatrix transform /Descent exch def pop
+    /FontHeight Ascent Descent sub def
+
+    % Get the underline position and thickness if they're defined.
+    % Use 1 if they are not defined.
+    currentdict /FontInfo 2 copy known
+    { get
+      /UnderlinePosition 2 copy % <FontInfo> /UP <FontInfo> /UP
+      2 copy known
+      { get }{ pop pop 1 } ifelse
+      0 exch FontMatrix transform exch pop
+      def % <FontInfo>
+
+      /UnderlineThickness 2 copy % <FontInfo> /UT <FontInfo> /UT
+      2 copy known
+      { get }{ pop pop 1 } ifelse
+      0 exch FontMatrix transform exch pop
+      def % <FontInfo>
+      pop % -
+    }{ pop pop
+    } ifelse
+
+    currentdict
+  end 
+} bind def
+
+% composite fonts for ASCII-EUC mixed string
+% Version 1.2 1/31/1990
+% Orignal Ken'ichi HANDA (handa@etl.go.jp)
+% Modified Norio Katayama (katayama@rd.nacsis.ac.jp),1998
+% Extend & Fix Koji Nakamaru (maru@on.cs.keio.ac.jp), 1999
+% Anyone can freely copy, modify, distribute this program.
+
+/copyfont {	% font-dic extra-entry-count  copyfont  font-dic
+	1 index maxlength add dict begin
+	{	1 index /FID ne 2 index /UniqueID ne and
+		{def} {pop pop} ifelse
+	} forall
+	currentdict
+	end
+} bind def
+
+/compositefont { % ASCIIFontName EUCFontName RomanScale RomanOffset Rot(T/F) compositefont font
+    /RomanRotation exch def
+    /RomanOffset exch def
+    /RomanScale exch def
+    userdict /fixeucfont_dict known not {
+	userdict begin
+	    /fixeucfont_dict 2 dict begin
+		/UpperByteEncoding [
+		    16#00 1 16#20 { pop 0 } for
+		    16#21 1 16#28 { 16#20 sub } for
+		    16#29 1 16#2F { pop 0 } for
+		    16#30 1 16#74 { 16#27 sub } for
+		    16#75 1 16#FF { pop 0 } for
+		] def
+	        /LowerByteEncoding [
+		    16#00 1 16#A0 { pop /.notdef } for
+		    16#A1 1 16#FE { 16#80 sub 16 2 string cvrs
+				    (cXX) dup 1 4 -1 roll
+				    putinterval cvn } for
+		    /.notdef
+		] def
+		currentdict
+	    end def
+	end
+    } if
+    findfont dup /FontType get 0 eq {
+	14 dict begin
+	    %
+	    % 7+8 bit EUC font
+	    %
+	    12 dict begin
+		/EUCFont exch def
+		/FontInfo (7+8 bit EUC font) readonly def
+		/PaintType 0 def
+		/FontType 0 def
+		/FontMatrix matrix def
+		% /FontName
+		/Encoding fixeucfont_dict /UpperByteEncoding get def
+		/FMapType 2 def
+		EUCFont /WMode known
+		{ EUCFont /WMode get /WMode exch def }
+		{ /WMode 0 def } ifelse
+		/FDepVector [
+		    EUCFont /FDepVector get 0 get
+		    [ 16#21 1 16#28 {} for 16#30 1 16#74 {} for ]
+		    {
+			13 dict begin
+			    /EUCFont EUCFont def
+			    /UpperByte exch 16#80 add def	
+			    % /FontName
+			    /FontInfo (EUC lower byte font) readonly def
+			    /PaintType 0 def
+			    /FontType 3 def
+			    /FontMatrix matrix def
+			    /FontBBox {0 0 0 0} def
+			    /Encoding
+				fixeucfont_dict /LowerByteEncoding get def
+			    % /UniqueID
+			    % /WMode
+			    /BuildChar {
+				gsave
+				exch dup /EUCFont get setfont
+				/UpperByte get
+				2 string
+				dup 0 4 -1 roll put
+				dup 1 4 -1 roll put
+				dup stringwidth setcharwidth
+				0 0 moveto show
+				grestore
+			    } bind def
+			    currentdict
+			end
+			/lowerbytefont exch definefont
+		    } forall
+		] def
+		currentdict
+	    end
+	    /eucfont exch definefont
+	    exch
+	    findfont 1 copyfont dup begin
+		RomanRotation {
+			/FontMatrix FontMatrix
+			[ 0 RomanScale neg RomanScale 0 RomanOffset neg 0 ]
+			matrix concatmatrix def
+		}{
+			/FontMatrix FontMatrix
+			[ RomanScale 0 0 RomanScale 0 RomanOffset ] matrix concatmatrix
+			def
+			/CDevProc
+			    {pop pop pop pop 0 exch -1000 exch 2 div 880} def
+		} ifelse
+	    end
+	    /asciifont exch definefont
+	    exch
+	    /FDepVector [ 4 2 roll ] def
+	    /FontType 0 def
+	    /WMode 0 def
+	    /FMapType 4 def
+	    /FontMatrix matrix def
+	    /Encoding [0 1] def
+	    /FontBBox {0 0 0 0} def
+%	    /FontHeight 1.0 def % XXXX
+	    /FontHeight RomanScale 1.0 ge { RomanScale }{ 1.0 } ifelse def
+	    /Descent -0.3 def   % XXXX
+	    currentdict
+	end
+	/tmpfont exch definefont
+	pop
+	/tmpfont findfont
+    }{
+	pop findfont 0 copyfont
+    } ifelse
+} def	
+
+/slantfont {	% FontName slant-degree  slantfont  font'
+    exch findfont 1 copyfont begin
+    [ 1 0 4 -1 roll 1 0 0 ] FontMatrix exch matrix concatmatrix
+    /FontMatrix exch def
+    currentdict
+    end
+} def
+
+% Function print line number (<string> # -)
+/# {
+  gsave
+    sx cw mul neg 2 div 0 rmoveto
+    f# setfont
+    c-show
+  grestore
+} bind def
+
+% -------- Some routines to enlight plain b/w printings ---------
+
+% Underline
+% width --
+/dounderline {
+  currentpoint
+  gsave
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    0 rlineto
+    stroke
+  grestore
+} bind def
+
+% Underline a string
+% string --
+/dounderlinestring {
+  stringwidth pop
+  dounderline
+} bind def
+
+/UL {
+  /ul exch store
+} bind def
+
+% Draw a box of WIDTH wrt current font
+% width --
+/dobox {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    stroke
+  grestore
+} bind def
+
+/BX {
+  /bx exch store
+} bind def
+
+% Box a string
+% string --
+/doboxstring {
+  stringwidth pop
+  dobox
+} bind def
+
+%
+% ------------- Color routines ---------------
+%
+/FG /setrgbcolor load def
+
+% Draw the background
+% width --
+/dobackground {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    bgcolor aload pop setrgbcolor
+    fill
+  grestore
+} bind def
+
+% Draw bg for a string
+% string --
+/dobackgroundstring {
+  stringwidth pop
+  dobackground
+} bind def
+
+
+/BG {
+  dup /bg exch store
+  { mark 4 1 roll ] /bgcolor exch store } if
+} bind def
+
+
+/Show {
+  bg { dup dobackgroundstring } if
+  ul { dup dounderlinestring } if
+  bx { dup doboxstring } if
+  show
+} bind def
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T {
+  cw mul x0 add
+  bg { dup currentpoint pop sub dobackground } if
+  ul { dup currentpoint pop sub dounderline } if
+  bx { dup currentpoint pop sub dobox } if
+  y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n {
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+/S {
+  Show
+} bind def
+
+%%BeginResource: procset a2ps-a2ps-hdr 2.0 2
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Function title: prints page header.
+% <ct> <rt> <lt> are passed as argument
+/title { 
+  % 1. Draw the background
+  x v get y v get moveto
+  gsave
+    0 th 2 div neg rmoveto 
+    th setlinewidth
+    0.95 setgray
+    pw 0 rlineto stroke
+  grestore
+  % 2. Border it
+  gsave
+    0.7 setlinewidth
+    pw 0 rlineto
+    0 th neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+  % stk: ct rt lt
+  x v get y v get th sub 1 add moveto
+%%IncludeResource: font Helvetica
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  % 3. The left title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    fnfs 0.8 mul hm rmoveto
+    show			% left title
+  grestore
+  exch
+  % stk: ct ltw rt
+  % 4. the right title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    dup
+    pw exch stringwidth pop fnfs 0.8 mul add sub
+    hm
+    rmoveto
+    show			% right title
+  grestore
+  % stk: ct ltw rtw
+  % 5. the center title
+  gsave
+    pw 3 1 roll
+    % stk: ct pw ltw rtw
+    3 copy 
+    % Move to the center of the left room
+    sub add 2 div hm rmoveto
+    % What is the available space in here?
+    add sub fnfs 0.8 mul sub fnfs 0.8 mul sub
+    % stk: ct space_left
+%%IncludeResource: font Helvetica-Bold
+  fHelvetica-Bold fnfs scalefont setfont
+    cfshow
+  grestore
+} bind def
+
+% Function border: prints virtual page border
+/border { %def
+  gsave				% print four sides
+    0 setgray
+    x v get y v get moveto
+    0.7 setlinewidth		% of the square
+    pw 0 rlineto
+    0 ph neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+} bind def
+
+% Function water: prints a water mark in background
+/water { %def
+  gsave
+    scx scy moveto rotate
+%%IncludeResource: font Times-Bold
+  fTimes-Bold 100 scalefont setfont
+    .97 setgray
+    dup stringwidth pop 2 div neg -50 rmoveto
+    show
+  grestore
+} bind def
+
+% Function rhead: prints the right header
+/rhead {  %def
+  lx ly moveto
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  l-show
+} bind def
+
+% Function footer (cf rf lf -> -)
+/footer {
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  dx dy moveto
+  show
+
+  snx sny moveto
+  l-show
+  
+  fnx fny moveto
+  c-show
+} bind def
+%%EndResource
+%%BeginResource: procset a2ps-black+white-Prolog 2.0 1
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T { 
+  cw mul x0 add y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n { %def
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+}  bind def
+
+/S {
+  Show
+} bind def
+
+/p {
+  false UL
+  false BX
+  fCourier bfs scalefont setfont
+  Show
+} bind def
+
+/sy {
+  false UL
+  false BX
+  fSymbol bfs scalefont setfont
+  Show
+} bind def
+
+/k {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/K {
+  false UL
+  false BX
+  fCourier-Bold bfs scalefont setfont
+  Show
+} bind def
+
+/c {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/C {
+  false UL
+  false BX
+  fCourier-BoldOblique bfs scalefont setfont
+  Show 
+} bind def
+
+/l {
+  false UL
+  false BX
+  fHelvetica bfs scalefont setfont
+  Show
+} bind def
+
+/L {
+  false UL
+  false BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show 
+} bind def
+
+/str{
+  false UL
+  false BX
+  fTimes-Roman bfs scalefont setfont
+  Show
+} bind def
+
+/e{
+  false UL
+  true BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show
+} bind def
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier
+%%IncludeResource: font Courier-Oblique
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Times-Roman
+%%IncludeResource: font Symbol
+%%IncludeResource: font Courier-BoldOblique
+%%BeginResource: encoding ISO-8859-1Encoding
+/ISO-8859-1Encoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright 
+/parenleft /parenright /asterisk /plus /comma /minus /period /slash 
+/zero /one /two /three /four /five /six /seven 
+/eight /nine /colon /semicolon /less /equal /greater /question 
+/at /A /B /C /D /E /F /G 
+/H /I /J /K /L /M /N /O 
+/P /Q /R /S /T /U /V /W 
+/X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore 
+/quoteleft /a /b /c /d /e /f /g 
+/h /i /j /k /l /m /n /o 
+/p /q /r /s /t /u /v /w 
+/x /y /z /braceleft /bar /braceright /asciitilde /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section 
+/dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron 
+/degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph /bullet 
+/cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf /threequarters /questiondown 
+/Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla 
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis 
+/Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply 
+/Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls 
+/agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla 
+/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis 
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide 
+/oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis 
+] def
+%%EndResource
+% Initialize page description variables.
+/sh 842 def
+/sw 595 def
+/llx 24 def
+/urx 571 def
+/ury 818 def
+/lly 24 def
+/#copies 1 def
+/th 20.000000 def
+/fnfs 15 def
+/bfs 11.199836 def
+/cw 6.719901 def
+
+% Dictionary for ISO-8859-1 support
+/iso1dict 8 dict begin
+  /fCourier ISO-8859-1Encoding /Courier reencode_font
+  /fCourier-Bold ISO-8859-1Encoding /Courier-Bold reencode_font
+  /fCourier-BoldOblique ISO-8859-1Encoding /Courier-BoldOblique reencode_font
+  /fCourier-Oblique ISO-8859-1Encoding /Courier-Oblique reencode_font
+  /fHelvetica ISO-8859-1Encoding /Helvetica reencode_font
+  /fHelvetica-Bold ISO-8859-1Encoding /Helvetica-Bold reencode_font
+  /fTimes-Bold ISO-8859-1Encoding /Times-Bold reencode_font
+  /fTimes-Roman ISO-8859-1Encoding /Times-Roman reencode_font
+currentdict end def
+/bgcolor [ 0 0 0 ] def
+/bg false def
+/ul false def
+/bx false def
+% The font for line numbering
+/f# /Helvetica findfont bfs .6 mul scalefont def
+/fSymbol /Symbol findfont def
+/hm fnfs 0.25 mul def
+/pw
+   cw 81.400000 mul
+def
+/ph
+   747.029046 th add
+def
+/pmw 0 def
+/pmh 0 def
+/v 0 def
+/x [
+  0
+] def
+/y [
+  pmh ph add 0 mul ph add
+] def
+/scx sw 2 div def
+/scy sh 2 div def
+/snx urx def
+/sny lly 2 add def
+/dx llx def
+/dy sny def
+/fnx scx def
+/fny dy def
+/lx snx def
+/ly ury fnfs 0.8 mul sub def
+/sx 0 def
+/tab 8 def
+/x0 0 def
+/y0 0 def
+%%EndSetup
+
+%%Page: (1) 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(\\documentclass{) K
+(article) L
+(}) p n
+() N
+(\\title{COMP26120 Lab 13: Background}) N
+(\\author{ZHU QIFAN}) N
+() N
+(\\begin) K
+({) p
+(document) l
+(}) p n
+(\\maketitle) N
+() N
+(% PART 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%) c n
+() p n
+(\\section) K
+({) p
+(The small-world hypothesis) L
+(}) p n
+(\\label{sec:small world}) N
+(% Here give your statement of the small-world hypothesis and how you) c n
+(% are going to test it.) N
+() p n
+(any two people can be in distance less or equal than 5.) N
+() N
+(I create the Dijkstra method to calculate the distance from every else node to t) N
+(he specific node.) N
+(And the result shows that there are no more than 5 distance.) N
+() N
+(\\section) K
+({) p
+(Complexity Arguments) L
+(}) p n
+(\\label{sec:complexity}) N
+(% Write down the complexity of Dijkstra's algorithm and of Floyd's algorithm.) c n
+(% Explain why, for these graphs, Dijkstra's algorithm is more efficient.) N
+() p n
+(complexity for dijkstra: O\(\(m+n\)logn\) if use binary tree.) N
+(complexity for Floyd's algorithm: O\(N^3\)) N
+() N
+(Because the graphs contains many nodes. the time complexity for Dijkstra's algor) N
+(ithm is better.) N
+() N
+(\\section) K
+({) p
+(Part 1 results) L
+(}) p n
+(\\label{sec:part1}) N
+(% Give the results of part one experiments.) c n
+() p n
+(Which node you want to act as source?) N
+(2) N
+(the distances from 2 to all other reachable node are:) N
+(node: 1 distance: 2) N
+(node: 3 distance: 1) N
+(node: 4 distance: 2) N
+(node: 5 distance: 2) N
+(node: 6 distance: 2) N
+(node: 7 distance: 2) N
+(node: 8 distance: 2) N
+(node: 9 distance: 2) N
+(node: 10 distance: 2) N
+(node: 11 distance: 2) N
+(node: 12 distance: 2) N
+(node: 13 distance: 3) N
+(node: 14 distance: 2) N
+(node: 15 distance: 2) N
+(node: 16 distance: 1) N
+(node: 17 distance: 2) N
+(node: 18 distance: 2) N
+(node: 19 distance: 1) N
+(node: 20 distance: 2) N
+(node: 21 distance: 2) N
+(node: 22 distance: 2) N
+(node: 23 distance: 2) N
+(node: 24 distance: 2) N
+(node: 25 distance: 2) N
+(node: 26 distance: 2) N
+(node: 27 distance: 2) N
+(node: 28 distance: 2) N
+(LabReport.tex) (Page 1/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (1/13) (Monday May 14, 2018) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (2) 2
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 29 distance: 2) p n
+(node: 30 distance: 2) N
+(node: 31 distance: 2) N
+(node: 32 distance: 3) N
+(node: 33 distance: 2) N
+(node: 34 distance: 2) N
+(node: 35 distance: 2) N
+(node: 36 distance: 2) N
+(node: 37 distance: 2) N
+(node: 38 distance: 2) N
+(node: 39 distance: 2) N
+(node: 40 distance: 2) N
+(node: 41 distance: 2) N
+(node: 42 distance: 1) N
+(node: 43 distance: 2) N
+(node: 44 distance: 2) N
+(node: 45 distance: 2) N
+(node: 46 distance: 1) N
+(node: 47 distance: 2) N
+(node: 48 distance: 2) N
+(node: 49 distance: 2) N
+(node: 50 distance: 2) N
+(node: 51 distance: 2) N
+(node: 52 distance: 3) N
+(node: 53 distance: 2) N
+(node: 54 distance: 2) N
+(node: 55 distance: 3) N
+(node: 56 distance: 2) N
+(node: 57 distance: 2) N
+(node: 58 distance: 2) N
+(node: 59 distance: 2) N
+(node: 60 distance: 1) N
+(node: 61 distance: 2) N
+(node: 62 distance: 2) N
+(node: 63 distance: 2) N
+(node: 64 distance: 1) N
+(node: 65 distance: 2) N
+(node: 66 distance: 2) N
+(node: 67 distance: 3) N
+(node: 68 distance: 1) N
+(node: 69 distance: 2) N
+(node: 70 distance: 2) N
+(node: 71 distance: 2) N
+(node: 72 distance: 2) N
+(node: 73 distance: 2) N
+(node: 74 distance: 2) N
+(node: 75 distance: 2) N
+(node: 76 distance: 2) N
+(node: 77 distance: 2) N
+(node: 78 distance: 2) N
+(node: 79 distance: 3) N
+(node: 80 distance: 2) N
+(node: 81 distance: 2) N
+(node: 82 distance: 2) N
+(node: 83 distance: 2) N
+(node: 84 distance: 1) N
+(node: 85 distance: 2) N
+(node: 86 distance: 3) N
+(node: 87 distance: 2) N
+(node: 88 distance: 2) N
+(node: 89 distance: 2) N
+(node: 90 distance: 2) N
+(node: 91 distance: 2) N
+(node: 92 distance: 3) N
+(node: 93 distance: 2) N
+(node: 94 distance: 2) N
+(LabReport.tex) (Page 2/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (Monday May 14, 2018) (2/13) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (3) 3
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 95 distance: 2) p n
+(node: 96 distance: 2) N
+(node: 97 distance: 1) N
+(node: 98 distance: 2) N
+(node: 99 distance: 2) N
+(node: 100 distance: 2) N
+(node: 101 distance: 2) N
+(node: 102 distance: 2) N
+(node: 103 distance: 3) N
+(node: 104 distance: 2) N
+(node: 105 distance: 2) N
+(node: 106 distance: 2) N
+(node: 107 distance: 2) N
+(node: 108 distance: 2) N
+(node: 109 distance: 2) N
+(node: 110 distance: 2) N
+(node: 111 distance: 2) N
+(node: 112 distance: 2) N
+(node: 113 distance: 2) N
+(node: 114 distance: 2) N
+(node: 115 distance: 2) N
+(node: 116 distance: 2) N
+(node: 117 distance: 2) N
+(node: 118 distance: 2) N
+(node: 119 distance: 2) N
+(node: 120 distance: 2) N
+(node: 121 distance: 2) N
+(node: 122 distance: 2) N
+(node: 123 distance: 2) N
+(node: 124 distance: 2) N
+(node: 125 distance: 2) N
+(node: 126 distance: 2) N
+(node: 127 distance: 2) N
+(node: 128 distance: 2) N
+(node: 129 distance: 2) N
+(node: 130 distance: 1) N
+(node: 132 distance: 2) N
+(node: 133 distance: 2) N
+(node: 134 distance: 2) N
+(node: 135 distance: 2) N
+(node: 136 distance: 3) N
+(node: 137 distance: 2) N
+(node: 138 distance: 2) N
+(node: 139 distance: 2) N
+(node: 140 distance: 2) N
+(node: 141 distance: 2) N
+(node: 142 distance: 2) N
+(node: 143 distance: 2) N
+(node: 144 distance: 2) N
+(node: 145 distance: 2) N
+(node: 146 distance: 2) N
+(node: 147 distance: 2) N
+(node: 148 distance: 2) N
+(node: 149 distance: 3) N
+(node: 150 distance: 2) N
+(node: 151 distance: 2) N
+(node: 152 distance: 2) N
+(node: 153 distance: 2) N
+(node: 154 distance: 2) N
+(node: 155 distance: 2) N
+(node: 156 distance: 2) N
+(node: 157 distance: 3) N
+(node: 158 distance: 3) N
+(node: 159 distance: 2) N
+(node: 160 distance: 2) N
+(node: 161 distance: 2) N
+(LabReport.tex) (Page 3/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (3/13) (Monday May 14, 2018) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (4) 4
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 162 distance: 2) p n
+(node: 164 distance: 3) N
+(node: 165 distance: 2) N
+(node: 166 distance: 1) N
+(node: 167 distance: 2) N
+(node: 168 distance: 2) N
+(node: 169 distance: 2) N
+(node: 170 distance: 2) N
+(node: 171 distance: 1) N
+(node: 172 distance: 2) N
+(node: 173 distance: 2) N
+(node: 174 distance: 2) N
+(node: 175 distance: 2) N
+(node: 176 distance: 2) N
+(node: 177 distance: 2) N
+(node: 178 distance: 2) N
+(node: 179 distance: 2) N
+(node: 180 distance: 2) N
+(node: 181 distance: 1) N
+(node: 182 distance: 2) N
+(node: 183 distance: 2) N
+(node: 184 distance: 2) N
+(node: 185 distance: 2) N
+(node: 186 distance: 2) N
+(node: 187 distance: 2) N
+(node: 188 distance: 2) N
+(node: 189 distance: 2) N
+(node: 190 distance: 2) N
+(node: 191 distance: 2) N
+(node: 192 distance: 2) N
+(node: 193 distance: 1) N
+(node: 194 distance: 1) N
+(node: 195 distance: 2) N
+(node: 196 distance: 2) N
+(node: 197 distance: 2) N
+(node: 198 distance: 3) N
+(node: 199 distance: 2) N
+(node: 200 distance: 2) N
+(node: 201 distance: 2) N
+(node: 202 distance: 2) N
+(node: 203 distance: 2) N
+(node: 204 distance: 2) N
+(node: 205 distance: 3) N
+(node: 206 distance: 2) N
+(node: 207 distance: 1) N
+(node: 208 distance: 2) N
+(node: 209 distance: 1) N
+(node: 210 distance: 2) N
+(node: 211 distance: 2) N
+(node: 212 distance: 2) N
+(node: 213 distance: 2) N
+(node: 214 distance: 2) N
+(node: 215 distance: 2) N
+(node: 216 distance: 1) N
+(node: 217 distance: 2) N
+(node: 218 distance: 2) N
+(node: 219 distance: 3) N
+(node: 220 distance: 2) N
+(node: 221 distance: 2) N
+(node: 222 distance: 2) N
+(node: 223 distance: 2) N
+(node: 224 distance: 2) N
+(node: 225 distance: 2) N
+(node: 226 distance: 2) N
+(node: 227 distance: 2) N
+(node: 228 distance: 2) N
+(LabReport.tex) (Page 4/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (Monday May 14, 2018) (4/13) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (5) 5
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 229 distance: 2) p n
+(node: 230 distance: 2) N
+(node: 231 distance: 2) N
+(node: 232 distance: 2) N
+(node: 233 distance: 2) N
+(node: 234 distance: 2) N
+(node: 235 distance: 2) N
+(node: 236 distance: 2) N
+(node: 237 distance: 2) N
+(node: 238 distance: 2) N
+(node: 239 distance: 2) N
+(node: 240 distance: 2) N
+(node: 241 distance: 2) N
+(node: 242 distance: 2) N
+(node: 243 distance: 3) N
+(node: 244 distance: 2) N
+(node: 245 distance: 2) N
+(node: 246 distance: 2) N
+(node: 247 distance: 2) N
+(node: 248 distance: 2) N
+(node: 249 distance: 2) N
+(node: 250 distance: 2) N
+(node: 251 distance: 2) N
+(node: 252 distance: 2) N
+(node: 253 distance: 2) N
+(node: 254 distance: 2) N
+(node: 255 distance: 2) N
+(node: 256 distance: 2) N
+(node: 257 distance: 2) N
+(node: 258 distance: 2) N
+(node: 259 distance: 2) N
+(node: 260 distance: 2) N
+(node: 261 distance: 2) N
+(node: 262 distance: 1) N
+(node: 263 distance: 2) N
+(node: 264 distance: 2) N
+(node: 265 distance: 2) N
+(node: 266 distance: 2) N
+(node: 267 distance: 2) N
+(node: 268 distance: 2) N
+(node: 269 distance: 2) N
+(node: 270 distance: 2) N
+(node: 271 distance: 2) N
+(node: 272 distance: 3) N
+(node: 273 distance: 2) N
+(node: 274 distance: 2) N
+(node: 275 distance: 2) N
+(node: 276 distance: 2) N
+(node: 277 distance: 2) N
+(node: 278 distance: 2) N
+(node: 279 distance: 2) N
+(node: 280 distance: 2) N
+(node: 281 distance: 1) N
+(node: 282 distance: 2) N
+(node: 283 distance: 2) N
+(node: 284 distance: 2) N
+(node: 285 distance: 2) N
+(node: 286 distance: 2) N
+(node: 287 distance: 2) N
+(node: 288 distance: 2) N
+(node: 289 distance: 1) N
+(node: 290 distance: 2) N
+(node: 291 distance: 3) N
+(node: 292 distance: 2) N
+(node: 293 distance: 2) N
+(node: 294 distance: 3) N
+(LabReport.tex) (Page 5/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (5/13) (Monday May 14, 2018) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (6) 6
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 295 distance: 2) p n
+(node: 296 distance: 2) N
+(node: 297 distance: 2) N
+(node: 298 distance: 2) N
+(node: 299 distance: 2) N
+(node: 300 distance: 2) N
+(node: 301 distance: 3) N
+(node: 302 distance: 2) N
+(node: 303 distance: 3) N
+(node: 304 distance: 2) N
+(node: 305 distance: 2) N
+(node: 306 distance: 2) N
+(node: 307 distance: 2) N
+(node: 308 distance: 2) N
+(node: 309 distance: 3) N
+(node: 310 distance: 3) N
+(node: 311 distance: 2) N
+(node: 312 distance: 2) N
+(node: 313 distance: 2) N
+(node: 314 distance: 2) N
+(node: 315 distance: 2) N
+(node: 316 distance: 2) N
+(node: 317 distance: 2) N
+(node: 318 distance: 2) N
+(node: 319 distance: 2) N
+(node: 320 distance: 3) N
+(node: 321 distance: 1) N
+(node: 322 distance: 2) N
+(node: 323 distance: 2) N
+(node: 324 distance: 2) N
+(node: 325 distance: 2) N
+(node: 326 distance: 2) N
+(node: 327 distance: 2) N
+(node: 328 distance: 2) N
+(node: 329 distance: 2) N
+(node: 330 distance: 2) N
+(node: 331 distance: 2) N
+(node: 332 distance: 2) N
+(node: 333 distance: 2) N
+(node: 334 distance: 2) N
+(node: 335 distance: 2) N
+(node: 336 distance: 2) N
+(node: 337 distance: 2) N
+(node: 338 distance: 2) N
+(node: 339 distance: 2) N
+(node: 340 distance: 2) N
+(node: 341 distance: 2) N
+(node: 342 distance: 2) N
+(node: 343 distance: 2) N
+(node: 344 distance: 2) N
+(node: 345 distance: 2) N
+(node: 346 distance: 3) N
+(node: 347 distance: 2) N
+(node: 348 distance: 2) N
+(node: 349 distance: 2) N
+(node: 350 distance: 2) N
+(node: 351 distance: 2) N
+(node: 352 distance: 2) N
+(node: 353 distance: 2) N
+(node: 354 distance: 2) N
+(node: 355 distance: 1) N
+(node: 356 distance: 2) N
+(node: 357 distance: 2) N
+(node: 358 distance: 2) N
+(node: 359 distance: 2) N
+(node: 360 distance: 2) N
+(LabReport.tex) (Page 6/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (Monday May 14, 2018) (6/13) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (7) 7
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 361 distance: 2) p n
+(node: 362 distance: 2) N
+(node: 363 distance: 2) N
+(node: 364 distance: 2) N
+(node: 365 distance: 2) N
+(node: 366 distance: 2) N
+(node: 367 distance: 2) N
+(node: 368 distance: 3) N
+(node: 369 distance: 2) N
+(node: 370 distance: 2) N
+(node: 371 distance: 2) N
+(node: 372 distance: 2) N
+(node: 373 distance: 2) N
+(node: 374 distance: 2) N
+(node: 375 distance: 2) N
+(node: 376 distance: 1) N
+(node: 377 distance: 2) N
+(node: 378 distance: 2) N
+(node: 379 distance: 2) N
+(node: 380 distance: 1) N
+(node: 381 distance: 2) N
+(node: 382 distance: 2) N
+(node: 383 distance: 2) N
+(node: 384 distance: 2) N
+(node: 385 distance: 2) N
+(node: 386 distance: 2) N
+(node: 387 distance: 2) N
+(node: 388 distance: 3) N
+(node: 389 distance: 2) N
+(node: 390 distance: 2) N
+(node: 391 distance: 2) N
+(node: 392 distance: 2) N
+(node: 393 distance: 2) N
+(node: 394 distance: 3) N
+(node: 395 distance: 2) N
+(node: 396 distance: 2) N
+(node: 397 distance: 2) N
+(node: 398 distance: 2) N
+(node: 399 distance: 2) N
+(node: 400 distance: 1) N
+(node: 401 distance: 2) N
+(node: 402 distance: 2) N
+(node: 403 distance: 2) N
+(node: 404 distance: 2) N
+(node: 405 distance: 2) N
+(node: 406 distance: 3) N
+(node: 407 distance: 1) N
+(node: 408 distance: 1) N
+(node: 409 distance: 2) N
+(node: 410 distance: 2) N
+(node: 411 distance: 2) N
+(node: 412 distance: 2) N
+(node: 413 distance: 2) N
+(node: 414 distance: 2) N
+(node: 415 distance: 2) N
+(node: 416 distance: 3) N
+(node: 417 distance: 2) N
+(node: 418 distance: 2) N
+(node: 419 distance: 3) N
+(node: 420 distance: 1) N
+(node: 421 distance: 2) N
+(node: 422 distance: 1) N
+(node: 423 distance: 2) N
+(node: 424 distance: 1) N
+(node: 425 distance: 2) N
+(node: 426 distance: 3) N
+(LabReport.tex) (Page 7/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (7/13) (Monday May 14, 2018) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (8) 8
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 427 distance: 1) p n
+(node: 428 distance: 2) N
+(node: 429 distance: 2) N
+(node: 430 distance: 2) N
+(node: 431 distance: 2) N
+(node: 432 distance: 2) N
+(node: 433 distance: 2) N
+(node: 434 distance: 2) N
+(node: 435 distance: 2) N
+(node: 436 distance: 2) N
+(node: 437 distance: 2) N
+(node: 438 distance: 2) N
+(node: 439 distance: 2) N
+(node: 440 distance: 2) N
+(node: 441 distance: 2) N
+(node: 442 distance: 2) N
+(node: 443 distance: 2) N
+(node: 444 distance: 1) N
+(node: 445 distance: 2) N
+(node: 446 distance: 2) N
+(node: 447 distance: 3) N
+(node: 448 distance: 2) N
+(node: 449 distance: 2) N
+(node: 450 distance: 3) N
+(node: 451 distance: 2) N
+(node: 452 distance: 3) N
+(node: 453 distance: 2) N
+(node: 454 distance: 2) N
+(node: 455 distance: 1) N
+(node: 456 distance: 2) N
+(node: 457 distance: 1) N
+(node: 458 distance: 3) N
+(node: 459 distance: 2) N
+(node: 460 distance: 2) N
+(node: 461 distance: 2) N
+(node: 462 distance: 2) N
+(node: 463 distance: 2) N
+(node: 464 distance: 2) N
+(node: 465 distance: 2) N
+(node: 466 distance: 2) N
+(node: 467 distance: 2) N
+(node: 468 distance: 3) N
+(node: 469 distance: 2) N
+(node: 470 distance: 2) N
+(node: 471 distance: 2) N
+(node: 472 distance: 2) N
+(node: 473 distance: 1) N
+(node: 474 distance: 3) N
+(node: 475 distance: 1) N
+(node: 476 distance: 3) N
+(node: 477 distance: 3) N
+(node: 478 distance: 3) N
+(node: 479 distance: 2) N
+(node: 480 distance: 2) N
+(node: 481 distance: 2) N
+(node: 482 distance: 2) N
+(node: 483 distance: 2) N
+(node: 484 distance: 2) N
+(node: 485 distance: 2) N
+(node: 486 distance: 2) N
+(node: 487 distance: 1) N
+(node: 488 distance: 2) N
+(node: 489 distance: 3) N
+(node: 490 distance: 2) N
+(node: 491 distance: 3) N
+(node: 492 distance: 2) N
+(LabReport.tex) (Page 8/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (Monday May 14, 2018) (8/13) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (9) 9
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 493 distance: 2) p n
+(node: 494 distance: 2) N
+(node: 495 distance: 2) N
+(node: 496 distance: 3) N
+(node: 497 distance: 3) N
+(node: 498 distance: 2) N
+(node: 499 distance: 2) N
+(node: 500 distance: 2) N
+(node: 501 distance: 3) N
+(node: 502 distance: 2) N
+(node: 503 distance: 2) N
+(node: 504 distance: 2) N
+(node: 505 distance: 2) N
+(node: 506 distance: 2) N
+(node: 507 distance: 2) N
+(node: 508 distance: 2) N
+(node: 509 distance: 2) N
+(node: 510 distance: 2) N
+(node: 511 distance: 2) N
+(node: 512 distance: 2) N
+(node: 513 distance: 3) N
+(node: 514 distance: 2) N
+(node: 515 distance: 2) N
+(node: 516 distance: 2) N
+(node: 517 distance: 2) N
+(node: 518 distance: 2) N
+(node: 519 distance: 2) N
+(node: 520 distance: 3) N
+(node: 521 distance: 2) N
+(node: 522 distance: 3) N
+(node: 523 distance: 2) N
+(node: 524 distance: 2) N
+(node: 525 distance: 2) N
+(node: 526 distance: 2) N
+(node: 527 distance: 2) N
+(node: 528 distance: 2) N
+(node: 529 distance: 2) N
+(node: 530 distance: 3) N
+(node: 531 distance: 2) N
+(node: 532 distance: 2) N
+(node: 533 distance: 2) N
+(node: 534 distance: 3) N
+(node: 535 distance: 3) N
+(node: 536 distance: 2) N
+(node: 537 distance: 2) N
+(node: 538 distance: 3) N
+(node: 539 distance: 2) N
+(node: 540 distance: 2) N
+(node: 541 distance: 2) N
+(node: 542 distance: 2) N
+(node: 543 distance: 2) N
+(node: 544 distance: 2) N
+(node: 545 distance: 2) N
+(node: 546 distance: 2) N
+(node: 547 distance: 2) N
+(node: 548 distance: 2) N
+(node: 549 distance: 2) N
+(node: 550 distance: 2) N
+(node: 551 distance: 2) N
+(node: 552 distance: 2) N
+(node: 553 distance: 3) N
+(node: 554 distance: 2) N
+(node: 555 distance: 2) N
+(node: 556 distance: 3) N
+(node: 557 distance: 2) N
+(node: 558 distance: 2) N
+(LabReport.tex) (Page 9/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (9/13) (Monday May 14, 2018) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (10) 10
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 559 distance: 2) p n
+(node: 560 distance: 2) N
+(node: 561 distance: 2) N
+(node: 562 distance: 3) N
+(node: 563 distance: 2) N
+(node: 564 distance: 2) N
+(node: 565 distance: 3) N
+(node: 566 distance: 1) N
+(node: 567 distance: 2) N
+(node: 568 distance: 3) N
+(node: 569 distance: 3) N
+(node: 570 distance: 3) N
+(node: 571 distance: 2) N
+(node: 572 distance: 2) N
+(node: 573 distance: 3) N
+(node: 574 distance: 2) N
+(node: 575 distance: 3) N
+(node: 576 distance: 2) N
+(node: 577 distance: 2) N
+(node: 578 distance: 2) N
+(node: 579 distance: 3) N
+(node: 580 distance: 3) N
+(node: 581 distance: 3) N
+(node: 582 distance: 3) N
+(node: 583 distance: 3) N
+(node: 584 distance: 2) N
+(node: 585 distance: 2) N
+(node: 586 distance: 3) N
+(node: 587 distance: 2) N
+(node: 588 distance: 3) N
+(node: 589 distance: 1) N
+(node: 590 distance: 2) N
+(node: 591 distance: 1) N
+(node: 592 distance: 2) N
+(node: 593 distance: 2) N
+(node: 594 distance: 2) N
+(node: 595 distance: 2) N
+(node: 596 distance: 2) N
+(node: 597 distance: 2) N
+(node: 598 distance: 1) N
+(node: 599 distance: 2) N
+(node: 600 distance: 3) N
+(node: 601 distance: 2) N
+(node: 602 distance: 3) N
+(node: 603 distance: 2) N
+(node: 604 distance: 3) N
+(node: 605 distance: 2) N
+(node: 606 distance: 2) N
+(node: 607 distance: 1) N
+(node: 608 distance: 2) N
+(node: 609 distance: 3) N
+(node: 610 distance: 2) N
+(node: 611 distance: 3) N
+(node: 613 distance: 1) N
+(node: 614 distance: 2) N
+(node: 615 distance: 3) N
+(node: 616 distance: 2) N
+(node: 617 distance: 2) N
+(node: 618 distance: 1) N
+(node: 620 distance: 2) N
+(node: 621 distance: 2) N
+(node: 622 distance: 2) N
+(node: 623 distance: 1) N
+(node: 624 distance: 3) N
+(node: 625 distance: 2) N
+(node: 626 distance: 2) N
+(LabReport.tex) (Page 10/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (Monday May 14, 2018) (10/13) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (11) 11
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 627 distance: 3) p n
+(node: 628 distance: 2) N
+(node: 629 distance: 2) N
+(node: 630 distance: 1) N
+(node: 631 distance: 1) N
+(node: 632 distance: 1) N
+(node: 633 distance: 2) N
+(node: 634 distance: 2) N
+(node: 635 distance: 1) N
+(node: 636 distance: 2) N
+(node: 637 distance: 2) N
+(node: 638 distance: 2) N
+(node: 639 distance: 2) N
+(node: 640 distance: 2) N
+(node: 641 distance: 2) N
+(node: 642 distance: 2) N
+(node: 643 distance: 2) N
+(node: 644 distance: 3) N
+(node: 645 distance: 2) N
+(node: 646 distance: 3) N
+(node: 647 distance: 2) N
+(node: 648 distance: 2) N
+(node: 649 distance: 2) N
+(node: 650 distance: 2) N
+(node: 651 distance: 2) N
+(node: 652 distance: 3) N
+(node: 653 distance: 2) N
+(node: 654 distance: 2) N
+(node: 655 distance: 3) N
+(node: 656 distance: 2) N
+(node: 657 distance: 2) N
+(node: 658 distance: 2) N
+(node: 659 distance: 2) N
+(node: 660 distance: 3) N
+(node: 661 distance: 2) N
+(node: 662 distance: 2) N
+(node: 663 distance: 2) N
+(node: 664 distance: 3) N
+(node: 665 distance: 2) N
+(node: 666 distance: 3) N
+(node: 667 distance: 3) N
+(node: 668 distance: 2) N
+(node: 669 distance: 3) N
+(node: 670 distance: 2) N
+(node: 671 distance: 3) N
+(node: 672 distance: 2) N
+(node: 673 distance: 2) N
+(node: 674 distance: 2) N
+(node: 675 distance: 3) N
+(node: 676 distance: 2) N
+(node: 677 distance: 2) N
+(node: 678 distance: 2) N
+(node: 679 distance: 2) N
+(node: 680 distance: 2) N
+(node: 681 distance: 2) N
+(node: 682 distance: 2) N
+(node: 683 distance: 2) N
+(node: 684 distance: 2) N
+(node: 685 distance: 1) N
+(node: 686 distance: 3) N
+(node: 687 distance: 2) N
+(node: 688 distance: 3) N
+(node: 689 distance: 3) N
+(node: 690 distance: 3) N
+(node: 691 distance: 2) N
+(node: 692 distance: 2) N
+(LabReport.tex) (Page 11/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (11/13) (Monday May 14, 2018) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (12) 12
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 693 distance: 2) p n
+(node: 694 distance: 2) N
+(node: 695 distance: 3) N
+(node: 696 distance: 2) N
+(node: 697 distance: 2) N
+(node: 698 distance: 3) N
+(node: 699 distance: 3) N
+(node: 700 distance: 2) N
+(node: 701 distance: 3) N
+(node: 702 distance: 2) N
+(node: 703 distance: 2) N
+(node: 704 distance: 2) N
+(node: 705 distance: 2) N
+(node: 706 distance: 2) N
+(node: 707 distance: 1) N
+(node: 708 distance: 3) N
+(node: 709 distance: 2) N
+(node: 710 distance: 3) N
+(node: 711 distance: 3) N
+(node: 713 distance: 2) N
+(node: 714 distance: 3) N
+(node: 715 distance: 2) N
+(node: 716 distance: 3) N
+(node: 717 distance: 3) N
+(node: 718 distance: 2) N
+(node: 720 distance: 3) N
+(node: 721 distance: 2) N
+(node: 722 distance: 2) N
+(node: 723 distance: 2) N
+(node: 724 distance: 2) N
+(node: 725 distance: 3) N
+(node: 726 distance: 3) N
+(node: 727 distance: 3) N
+(node: 728 distance: 3) N
+(node: 729 distance: 3) N
+(node: 730 distance: 3) N
+(node: 731 distance: 2) N
+(node: 732 distance: 3) N
+(node: 733 distance: 3) N
+(node: 734 distance: 2) N
+(node: 735 distance: 2) N
+(node: 736 distance: 3) N
+(node: 737 distance: 2) N
+(node: 738 distance: 2) N
+(node: 739 distance: 3) N
+(node: 740 distance: 3) N
+(node: 741 distance: 3) N
+(node: 742 distance: 3) N
+(node: 743 distance: 3) N
+(node: 744 distance: 2) N
+(node: 745 distance: 3) N
+(node: 746 distance: 3) N
+(node: 747 distance: 3) N
+(node: 748 distance: 2) N
+(node: 749 distance: 3) N
+(node: 750 distance: 3) N
+(node: 751 distance: 2) N
+(node: 752 distance: 2) N
+(node: 754 distance: 2) N
+(node: 755 distance: 2) N
+(node: 756 distance: 3) N
+(node: 757 distance: 3) N
+(node: 758 distance: 3) N
+(node: 759 distance: 3) N
+(node: 760 distance: 4) N
+(node: 761 distance: 3) N
+(LabReport.tex) (Page 12/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (Monday May 14, 2018) (12/13) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (13) 13
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(node: 762 distance: 3) p n
+(node: 763 distance: 3) N
+(node: 764 distance: 3) N
+(node: 765 distance: 3) N
+(node: 766 distance: 3) N
+(node: 767 distance: 3) N
+(node: 768 distance: 3) N
+(node: 769 distance: 3) N
+() N
+() N
+(% PART 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%) c n
+() p n
+(\\section) K
+({) p
+(Part 2 complexity analysis) L
+(}) p n
+(\\label{sec:complexity2}) N
+(% Give the complexity of the heuristic route finder.) c n
+(The time complexity is polynomial when the search space is a tree, there is a si) p n
+(ngle goal state, and the heuristic function h meets the following condition:) N
+() N
+({\\displaystyle |h\(x\)-h^{*}\(x\)|=O\(\\log h^{*}\(x\)\)} |h\(x\) - h^*\(x\)| = O\(\\log h^*\(x\)) N
+(\)) N
+(where h* is the optimal heuristic, the exact cost to get from x to the goal.) N
+( In other words, the error of h will not grow faster than the logarithm of) N
+( the ") S
+(perfect heuristic) str
+(" h* that returns the true distance from x to the goal.) p n
+() N
+( I think the time complexity should be less or equal than O\(n\)) N
+() N
+() N
+(\\section) K
+({) p
+(Part 2 results) L
+(}) p n
+(\\label{sec:part2}) N
+(% Give the results of part two experiments.) c n
+() p n
+(Which node you want to act as source and target?) N
+(2 and 769) N
+(the distances from 2 to node 769 is:) N
+(distance: 3) N
+() N
+() N
+(\\end) K
+({) p
+(document) l
+(}) p n
+(LabReport.tex) (Page 13/13) (May 09, 18 9:56) title
+border
+grestore
+(Printed by Qifan Zhu) rhead
+() (13/13) (Monday May 14, 2018) footer
+end % of iso1dict
+pagesave restore
+showpage
+
+%%Trailer
+end
+%%EOF

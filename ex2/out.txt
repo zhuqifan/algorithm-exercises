@@ -1,0 +1,2 @@
+HELLO world!
+Read 13 characters in total, 5 converted to upper-case, 5 to lower-ase

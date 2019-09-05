@@ -1,0 +1,9 @@
+make command using makefile to compile c program file
+[mbaxaqz2@e-c07kig2391 ex2]$ make HelloWorld
+gcc -g -std=c99 -Wall    HelloWorld.c   -o HelloWorld
+HelloWorld.c: In function ‘main’:
+HelloWorld.c:5:3: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+   printf("Hello world!\n");
+   ^
+HelloWorld.c:5:3: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+

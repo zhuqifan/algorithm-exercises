@@ -1,0 +1,43 @@
+find_fixed_point(list)
+{
+    a := 0
+    for each i in list
+      if(a = i)
+        fixed_point = "a"
+      else
+        if(fixed_point==null)
+          fixed_point="No"
+      a++  
+    end for
+    output: fixed_point   
+}
+look through each element in the list and compare its value and its index
+O(n)
+
+find_fixed_point_binary(list)
+{
+    int mid;
+    start = 1
+    end = n
+    while(start<=end)
+       mid = start+(end-start)/2
+       if(list[mid]<mid)
+        start = mid + 1
+       else if(list[mid]>mid)
+        end = mid -1
+       else
+        fixed_point = mid;
+        
+     if fixed_point = null
+      fixed_point = "NO"
+        
+     output:fixed_point;
+}
+use binary search to compare elements. firstly i set a start and a end.
+Then choose a mid point on the list. compare the index and value of the mid point.
+if its value is larger, choose a mid point on the left side. Otherwise right side.
+Until find a point which has same value and index.
+O(log2 n)
+
+1  2 3 4 5 6
+-2 0 3 5 6 7
